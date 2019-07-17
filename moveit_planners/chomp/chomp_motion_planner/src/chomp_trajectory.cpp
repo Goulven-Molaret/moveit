@@ -251,7 +251,7 @@ void ChompTrajectory::assignCHOMPTrajectoryPointFromInputTrajectoryPoint(
   for (const robot_state::JointModel* jm : trajectory.getGroup()->getActiveJointModels())
   {
     assert(jm->getVariableCount() == 1);
-    target[joint_index++] = source.getVariablePosition(jm->getJointIndex());
+    target[joint_index++] = source.getVariablePosition(jm->getFirstVariableIndex());
   }
 }
 
