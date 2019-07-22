@@ -184,6 +184,9 @@ bool ChompPlanner::solve(const planning_scene::PlanningSceneConstPtr& planning_s
 
     bool optimization_result = optimizer->optimize();
 
+    // Retrieve the number of iteration befor chomp optimizer has returned
+    int iteration = optimizer->getIteration();
+
     // replan with updated parameters if no solution is found
     if (params_nonconst.enable_failure_recovery_)
     {
@@ -243,6 +246,9 @@ bool ChompPlanner::solve(const planning_scene::PlanningSceneConstPtr& planning_s
   res.error_code_.val = moveit_msgs::MoveItErrorCodes::SUCCESS;
   res.processing_time_.resize(1);
   res.processing_time_[0] = (ros::WallTime::now() - start_time).toSec();
+  
+  // add the iteration in the desciption result
+  res.description_.push_back(std::to_string(iteration));
 
   // report planning failure if path has collisions
   if (not optimizer->isCollisionFree())

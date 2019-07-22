@@ -82,6 +82,11 @@ public:
     return is_collision_free_;
   }
 
+  int getIteration()
+  {
+    return iteration_;
+  }
+
 private:
   inline double getPotential(double field_distance, double radius, double clearence)
   {
